@@ -136,6 +136,21 @@ public class WebAppInterface {
 	public void setBgPlay(boolean bgplay) {
 		activity.getSharedPreferences("YTPRO", Context.MODE_PRIVATE).edit().putBoolean("bgplay", bgplay).apply();
 	}
+
+	@JavascriptInterface
+	public void setAutoPip(boolean autoPip) {
+		activity.getSharedPreferences("YTPRO", Context.MODE_PRIVATE).edit().putBoolean("autoPip", autoPip).apply();
+	}
+
+	@JavascriptInterface
+	public void openStudio() {
+		activity.runOnUiThread(() -> {
+			activity.studioMode = true;
+			String desktopUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+			web.getSettings().setUserAgentString(desktopUA);
+			web.loadUrl("https://studio.youtube.com/");
+		});
+	}
 	
 	@JavascriptInterface
 	public void bgStart(String iconn, String titlen, String subtitlen, long dura) {
